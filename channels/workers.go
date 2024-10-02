@@ -12,10 +12,10 @@ import "sync"
 // their tasks and the input channel is fully processed.
 //
 // Parameters:
-// - input: A read-only channel from which values of type `T1` are received.
-// - channelSize: The size of the output channel (buffered channel), which controls how many results can be stored before being read.
-// - workerCount: The number of worker goroutines to process items concurrently.
-// - fn: A function that takes a value of type `T1` and transforms it to a value of type `T2`.
+//   - input: A read-only channel from which values of type `T1` are received.
+//   - channelSize: The size of the output channel (buffered channel), which controls how many results can be stored before being read.
+//   - workerCount: The number of worker goroutines to process items concurrently.
+//   - fn: A function that takes a value of type `T1` and transforms it to a value of type `T2`.
 //
 // Returns:
 //   - A read-only channel of type `T2` that will receive the results of applying the function `fn`
