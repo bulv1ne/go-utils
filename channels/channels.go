@@ -5,7 +5,31 @@ import (
 	"sync"
 )
 
-func PipeSeqToChannel[T any](input iter.Seq[T], size int) chan T {
+// PipeSeqToChannel pipes elements from a given sequence to a channel.
+//
+// This generic function takes a sequence of elements of any type (T),
+// processes the sequence in a sequential manner, and pipes the elements
+// into a buffered channel of the specified size. This function allows
+// for decoupling of producers (the sequence) and consumers (the channel).
+//
+// Parameters:
+//   - input: A sequence of type iter.Seq[T] that will be iterated over and
+//     its elements sent into the channel.
+//   - size: An integer representing the buffer size of the channel to be created.
+//
+// Returns:
+//
+//	A buffered channel of type chan T, where T is the same type as the elements
+//	in the input sequence.
+//
+// Example usage:
+//
+//	seq := slices.Values([]int{1, 2, 3, 4, 5})
+//	ch := PipeSeqToChannel(seq, 10)
+//	for val := range ch {
+//	    fmt.Println(val)
+//	}
+func PipeSeqToChannel[T any](input iter.Seq[T], size int) <-chan T {
 	output := make(chan T, size)
 	go func() {
 		for row := range input {
